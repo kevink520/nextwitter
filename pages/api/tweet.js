@@ -2,7 +2,8 @@ import prisma from 'lib/prisma';
 import { getSession } from 'next-auth/react';
 
 export default async function handler(req, res) {
-  const session = getSession({ req });
+  console.log('/api/tweet')
+  const session = await getSession({ req });
   if (!session) {
     return res.status(401).json({ message: 'Not logged in' });
   }

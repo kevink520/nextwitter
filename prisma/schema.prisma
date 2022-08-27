@@ -17,8 +17,7 @@ model User {
   username      String?   @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime
-  @default(now())
+  createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
@@ -63,7 +62,7 @@ model Session {
 
 model Tweet {
   id           Int      @id @default(autoincrement())
-  parent       Int!
+  parent       Int?
   createdAt    DateTime @default(now())
   content      String
   author       User     @relation(fields: [authorId], references: [id])

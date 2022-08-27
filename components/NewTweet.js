@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function NewTweet() {
   const [content, setContent] = useState('');
   const { data: session } = useSession();
+  const router = useRouter();
 
   if (!session || !session.user) {
     return null;
@@ -26,12 +28,14 @@ export default function NewTweet() {
           },
           method: 'POST',
         });
+
+        router.reload(window.location.pathname);
       }}
     >
       <div className='flex'>
         <div className='flex-1 px-1 pt-2 mt-2 mr-1 ml-1'>
           <textarea
-            className='border p-4 w-full text-lg font-medium bg-transparent outline-none color-primary"
+            className="border p-4 w-full text-lg font-medium bg-transparent outline-none color-primary"
             rows={2}
             cols={50}
             placeholder="What's happening?"
@@ -49,10 +53,5 @@ export default function NewTweet() {
         </div>
       </div>
     </form>
-  )
-}
-```
-    </form>
   );
 }
-
