@@ -5,7 +5,7 @@ export default function Tweet({ tweet }) {
     <p>
       {timeago.format(new Date(tweet.createdAt))}
       {' '}
-      {tweet.author.email}
+      {tweet.author.name}
       {' '}
       {tweet.content}
     </p>
