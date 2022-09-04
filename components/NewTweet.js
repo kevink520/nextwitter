@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import Image from 'next/image';
 
-export default function NewTweet() {
+export default function NewTweet({ setAllTweets }) {
   const [content, setContent] = useState('');
   const { data: session } = useSession();
-  const router = useRouter();
 
   if (!session || !session.user) {
     return null;
@@ -13,6 +12,7 @@ export default function NewTweet() {
 
   return (
     <form
+      className="w-full max-w-2xl p-8 mb-8 bg-white shadow"
       onSubmit={async (e) => {
         e.preventDefault();
 
@@ -21,7 +21,7 @@ export default function NewTweet() {
           return;
         }
 
-        await fetch('/api/tweet', {
+        const res = await fetch('/api/tweet/', {
           body: JSON.stringify({ content }),
           headers: {
             'Content-Type': 'application/json',
@@ -29,25 +29,43 @@ export default function NewTweet() {
           method: 'POST',
         });
 
-        router.reload(window.location.pathname);
+        if (res.ok) {
+          const { tweet } = await res.json();
+          setContent('');
+          setAllTweets((prev) => [tweet, ...prev]);
+        } else { 
+          alert('Error');
+        }
       }}
     >
-      <div className='flex'>
-        <div className='flex-1 px-1 pt-2 mt-2 mr-1 ml-1'>
+      <div className="flex">
+        {session.user.image ? (
+        <Image
+          src={session.user.image}
+          alt={session.user.name}
+          width={64}
+          height={64}
+          className="rounded-full"
+        />
+        ) : (
+          <div className="w-16 h-16 rounded-full bg-blue-100" />
+        )}
+        <div className="flex-1 ml-3 mb-3">
           <textarea
-            className="border p-4 w-full text-lg font-medium bg-transparent outline-none color-primary"
+            className="border border-gray-200 p-4 w-full text-lg font-medium bg-transparent outline-none color-primary"
             rows={2}
             cols={50}
             placeholder="What's happening?"
-            name='content'
+            name="content"
+            value={content}
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
       </div>
 
-      <div className='flex'>
-        <div className='flex-1 mb-5'>
-          <button className='border float-right px-8 py-2 mt-0 mr-2 font-bold rounded-full'>
+      <div className="flex">
+        <div className="flex justify-end flex-1">
+          <button className="px-8 py-2 mt-0 bg-blue-900 font-bold rounded-full text-white hover:opacity-90 transition duration-300">
             Tweet
           </button>
         </div>

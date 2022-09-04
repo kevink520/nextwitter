@@ -1,5 +1,5 @@
 {
-  "name": "next-twitter",
+  "name": "nextwitter",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,7 +16,8 @@
     "nodemailer": "^6.7.8",
     "pg": "^8.8.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.4.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",

@@ -1,8 +1,8 @@
 import prisma from 'lib/prisma';
 import { getSession } from 'next-auth/react';
+import { getTweets } from 'lib/data';
 
 export default async function handler(req, res) {
-  console.log('/api/tweet')
   const session = await getSession({ req });
   if (!session) {
     return res.status(401).json({ message: 'Not logged in' });
@@ -19,16 +19,19 @@ export default async function handler(req, res) {
   }
   
   if (req.method === 'POST') {
-    await prisma.tweet.create({
+    const tweet = await prisma.tweet.create({
       data: {
         content: req.body.content,
         author: {
           connect: { id: user.id },
         },
       },
+      include: {
+        author: true,
+      },
     });
 
-    return res.end();
+    return res.json({ tweet });
   }
 }
 

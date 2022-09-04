@@ -1,5 +1,5 @@
 import prisma from 'lib/prisma';
-import faker from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { getSession } from 'next-auth/react';
 
 export default async function handler(req, res) {
@@ -22,13 +22,26 @@ export default async function handler(req, res) {
   }
 
   if (req.body.task === 'generate_users_and_tweets') {
-    let count = 0;
-    while (count < 5) {
+    for (let count = 0; count < 5; count++) {
       await prisma.user.create({
         data: {
           name: faker.internet.userName().toLowerCase(),
           email: faker.internet.email().toLowerCase(),
           image: faker.internet.avatar(),
+        },
+      });
+    }
+
+    const users = await prisma.user.findMany({});
+    for (const user of users) {
+      await prisma.tweet.create({
+        data: {
+          content: faker.hacker.phrase(),
+          author: {
+            connect: {
+              id: user.id,
+            },
+          },
         },
       });
     }
@@ -38,22 +51,6 @@ export default async function handler(req, res) {
     const users = await prisma.user.findMany({});
     const randomIndex = Math.floor(Math.random() * users.length);
     const user = users[randomIndex];
-    await prisma.tweet.create({
-      data: {
-        content: faker.hacker.phrase(),
-      },
-      author: {
-        connect: {
-          id: user.id,
-        },
-      },
-    });
-
-    count++;
-  }
-
-  const users = await prisma.user.findMany({});
-  for (const user of users) {
     await prisma.tweet.create({
       data: {
         content: faker.hacker.phrase(),

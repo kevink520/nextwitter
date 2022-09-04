@@ -3,8 +3,10 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 export default function Setup() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
   const [name, setName] = useState('');
+  const router = useRouter();
   if (!session || !session.user) {
     return null;
   }
@@ -14,7 +16,7 @@ export default function Setup() {
   }
 
   if (!loading && session.user.name) {
-    return router.push('/home');
+    return router.push('/home/');
   }
 
   return (
@@ -22,7 +24,7 @@ export default function Setup() {
       className="mt-10 ml-20"
       onSubmit={async (e) => {
         e.preventDefault()
-        await fetch('/api/setup', {
+        await fetch('/api/setup/', {
           body: JSON.stringify({
             name
           }),
@@ -33,7 +35,7 @@ export default function Setup() {
 	});
 
         session.user.name = name;
-        router.push('/home');
+        router.push('/home/');
       }}
     >
       <div className="flex-1 mb-5">
@@ -42,7 +44,7 @@ export default function Setup() {
           type="text"
           name="name"
           value={name}
-          onChange=((e) => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           className="border p-1"
         />
       </div>
