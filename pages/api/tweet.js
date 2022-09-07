@@ -3,6 +3,10 @@ import { getSession } from 'next-auth/react';
 import { getTweets } from 'lib/data';
 
 export default async function handler(req, res) {
+  if (!['POST'/*, 'DELETE'*/].includes(req.method)) {
+    return res.status(501).end();
+  }
+
   const session = await getSession({ req });
   if (!session) {
     return res.status(401).json({ message: 'Not logged in' });
@@ -34,4 +38,3 @@ export default async function handler(req, res) {
     return res.json({ tweet });
   }
 }
-
