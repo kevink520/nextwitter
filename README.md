@@ -70,11 +70,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
-* [![Prisma][Prisma.io][Prisma-url]
-* [![Railway][Railway.app]][Railway-url]
-* [![PostgreSQL][PostgreSQL.org]][PostgreSQL-url]
-* [![Vercel][Vercel.com]][Vercel-url]
-* [![Tailwind][Tailwindcss.com]][Tailwind-url]
+* ![Prisma](https://img.shields.io/static/v1?style=for-the-badge&message=Prisma&color=2D3748&logo=Prisma&logoColor=FFFFFF&label=)
+* ![Railway](https://img.shields.io/static/v1?style=for-the-badge&message=Railway&color=0B0D0E&logo=Railway&logoColor=FFFFFF&label=)
+* ![PostgreSQL](https://img.shields.io/static/v1?style=for-the-badge&message=PostgreSQL&color=4169E1&logo=PostgreSQL&logoColor=FFFFFF&label=)
+* ![Vercel](https://img.shields.io/static/v1?style=for-the-badge&message=Vercel&color=000000&logo=Vercel&logoColor=FFFFFF&label=)
+* ![Tailwind CSS](https://img.shields.io/static/v1?style=for-the-badge&message=Tailwind+CSS&color=222222&logo=Tailwind+CSS&logoColor=06B6D4&label=)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -83,12 +83,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
   npm install npm@latest -g
