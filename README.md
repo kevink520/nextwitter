@@ -66,8 +66,6 @@ This is based on a project in the Advanced Bootcamp, and I added many extra feat
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
 * ![Prisma](https://img.shields.io/static/v1?style=for-the-badge&message=Prisma&color=2D3748&logo=Prisma&logoColor=FFFFFF&label=)
