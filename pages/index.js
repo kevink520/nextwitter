@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import prisma from 'lib/prisma';
 import { getTweets } from 'lib/data';
+import Link from 'next/link';
 import Layout from 'components/Layout';
 import Tweets from 'components/Tweets';
 
@@ -22,13 +23,14 @@ export default function Home({ tweets }) {
         <Tweets tweets={tweets} shadow />
       </div>
       <div className="w-full max-w-2xl p-8 bg-white dark:bg-slate-700 shadow text-center">
-        <h2 className="mb-6 text-2xl dark:text-white">Join the conversation!</h2>
-        <a
-          className="px-8 py-2 rounded-full bg-blue-900 text-white uppercase tracking-widest hover:opacity-90 transition duration-300"
-          href="/api/auth/signin"
-        >
-          Login
-        </a>
+        <h2 className="mb-6 text-2xl dark:text-white">
+          Join the conversation!
+        </h2>
+        <Link href="/api/auth/signin">
+          <a className="px-8 py-2 rounded-full bg-blue-900 text-white uppercase tracking-widest hover:opacity-90 transition duration-300">
+            Login
+          </a>
+        </Link>
       </div>
     </Layout>
   );
