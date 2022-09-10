@@ -13,7 +13,7 @@ export default function Home({ tweets }) {
   }
 
   if (session) {
-    router.push('/home/');
+    router.push('/home');
   }
 
   return (
@@ -21,11 +21,11 @@ export default function Home({ tweets }) {
       <div className="w-full max-w-2xl mb-8">
         <Tweets tweets={tweets} shadow />
       </div>
-      <div className="w-full max-w-2xl p-8 bg-white shadow text-center">
-        <h2 className="mb-6 text-2xl">Join the conversation!</h2>
+      <div className="w-full max-w-2xl p-8 bg-white dark:bg-slate-700 shadow text-center">
+        <h2 className="mb-6 text-2xl dark:text-white">Join the conversation!</h2>
         <a
           className="px-8 py-2 rounded-full bg-blue-900 text-white uppercase tracking-widest hover:opacity-90 transition duration-300"
-          href="/api/auth/signin/"
+          href="/api/auth/signin"
         >
           Login
         </a>

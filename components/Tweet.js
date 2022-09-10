@@ -1,15 +1,20 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import timeago from 'lib/timeago';
+import { useSession } from 'next-auth/react';
+import { FaComments, FaHeart } from 'react-icons/fa';
 
 export default function Tweet({ tweet }) {
+  const [likesCount, setLikesCount] = useState(tweet.likes?.length || 0);
+  const { data: session } = useSession();
   return (
     <div className="flex items-start">
-      <div className="relative z-10 pb-3 bg-white">
+      <div className="relative z-10 pb-3 bg-white dark:bg-slate-700">
         {tweet.author.image ? (
           <Image
             src={tweet.author.image}
-            alt={tweet.author.name}
+            alt={tweet.author.username}
             width={40}
             height={40}
             className="rounded-full"
@@ -19,15 +24,72 @@ export default function Tweet({ tweet }) {
         )}
       </div>
       <div className="flex-1 flex-col relative ml-3 mb-7">
-        <Link href={`/${tweet.author.name}/`}>
-          <a className="-mt-1 text-xl leading-normal">{tweet.author.name}</a>
+        <Link href={`/${tweet.author.username}/`}>
+          <a className="-mt-1 text-xl leading-normal dark:text-slate-400">
+            {tweet.author.username}
+          </a>
         </Link>
-        <p className="mb-2 text-gray-500 text-sm">
+        <p className="mb-2 text-gray-500 dark:text-slate-500 text-sm">
           {timeago.format(new Date(tweet.createdAt))}
         </p>
-        <Link href={`/${tweet.author.name}/status/${tweet.id}/`}>
-          <a className="">{tweet.content}</a>
-        </Link>
+        {tweet.parent ? (
+          <span className="dark:text-slate-400">{tweet.content}</span>
+        ) : (
+          <Link href={`/${tweet.author.username}/status/${tweet.id}`}>
+            <a className="dark:text-slate-400">{tweet.content}</a>
+          </Link>
+        )}
+        <div className="flex items-center mt-3">
+          {tweet.repliesCount > 0 && (
+            <Link href={`/${tweet.author.username}/status/${tweet.id}`}>
+              <a className="flex items-center text-gray-300 dark:text-slate-700">
+                <FaComments size={24} />
+                <span className="ml-2 mr-5 text-gray-500 dark:text-slate-500 text-sm">
+                  {tweet.repliesCount}
+                </span>
+              </a>
+            </Link>
+          )}
+          {!tweet.parent && (
+            <div className="flex items-center">
+              <button
+                className="flex items-center text-gray-300 dark:text-slate-700 hover:text-red-300 transition duration-300"
+                onClick={async () => {
+                  if (tweet.likes.findIndex((user) => user.id === session.user.id) > -1) {
+                    alert('You already liked this tweet');
+                    return;
+                  }
+                  
+                  const res = await fetch('/api/like', {
+                    body: JSON.stringify({
+                      tweetId: tweet.id,
+                      userId: session.user.id,
+                    }),
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                  });
+
+                  if (!res.ok) {
+                    const { message } = await res.json();
+                    alert(message);
+                    return;
+                  }
+
+                  setLikesCount((prev) => prev + 1);
+                }}
+              >
+                <FaHeart size={24} />
+              </button>
+              {likesCount > 0 && (
+                <span className="ml-3 text-gray-500 dark:text-slate-500 text-sm">
+                  {likesCount}
+                </span>
+              )}
+            </div>
+          )}
+        </div>
         <div className="absolute top-1 -left-8 w-1 h-full border-l-2 border-gray-200" />
       </div>
     </div>

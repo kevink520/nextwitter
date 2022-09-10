@@ -10,10 +10,9 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     await prisma.user.update({
       where: { email: session.user.email },
-      data: { name: req.body.name },
+      data: { username: req.body.username },
     });
 
     res.end();
   }
 }
-

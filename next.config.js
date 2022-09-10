@@ -5,6 +5,6 @@ const nextConfig = {
     domains: ['cloudflare-ipfs.com', 'localhost'],
   },
   swcMinify: true,
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

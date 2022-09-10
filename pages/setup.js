@@ -5,46 +5,58 @@ import { useSession } from 'next-auth/react';
 export default function Setup() {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const router = useRouter();
-  if (!session || !session.user) {
-    return null;
-  }
 
   if (loading) {
     return null;
   }
 
-  if (!loading && session.user.name) {
-    return router.push('/home/');
+  if (!session || !session.user) {
+    return null;
   }
 
+  if (!loading && session.user.username) {
+    router.push('/home');
+    return;
+  }
+
+  console.log('session', session);
+
   return (
-    <form 
+    <form
       className="mt-10 ml-20"
       onSubmit={async (e) => {
-        e.preventDefault()
-        await fetch('/api/setup/', {
+        e.preventDefault();
+        const res = await fetch(`/api/user?username=${username}`);
+        const { usernameExists } = await res.json();
+        if (usernameExists) {
+          alert('Username already exists');
+          setUsername('');
+          return;
+        }
+
+        await fetch('/api/setup', {
           body: JSON.stringify({
-            name
+            username,
           }),
           headers: {
             'Content-Type': 'application/json',
           },
           method: 'POST',
-	});
+        });
 
-        session.user.name = name;
-        router.push('/home/');
+        session.user.username = username;
+        router.push('/home');
       }}
     >
       <div className="flex-1 mb-5">
-        <div className="flex-1 mb-5">Username</div>
+        <div className="flex-1 mb-5">Please enter a username</div>
         <input
           type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="border p-1"
         />
       </div>
@@ -54,4 +66,3 @@ export default function Setup() {
     </form>
   );
 }
-

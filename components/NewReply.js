@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
-export default function NewTweet({ setTweets }) {
-  const [content, setContent] = useState('');
+export default function NewReply({ setAllReplies, tweet }) {
+  const [reply, setReply] = useState('');
   const { data: session } = useSession();
 
   if (!session || !session.user) {
@@ -12,17 +12,20 @@ export default function NewTweet({ setTweets }) {
 
   return (
     <form
-      className="w-full max-w-2xl p-8 mb-8 bg-white dark:bg-slate-700 shadow"
+      className="w-full max-w-2xl px-8 pt-8 bg-white dark:bg-slate-700"
       onSubmit={async (e) => {
         e.preventDefault();
 
-        if (!content) {
-          alert('No content');
+        if (!reply) {
+          alert('Please enter a reply');
           return;
         }
 
         const res = await fetch('/api/tweet/', {
-          body: JSON.stringify({ content }),
+          body: JSON.stringify({
+            parent: tweet.id,
+            content: reply,
+          }),
           headers: {
             'Content-Type': 'application/json',
           },
@@ -30,9 +33,9 @@ export default function NewTweet({ setTweets }) {
         });
 
         if (res.ok) {
-          const { tweet } = await res.json();
-          setContent('');
-          setTweets((prev) => [tweet, ...prev]);
+          const { tweet: savedReply } = await res.json();
+          setReply('');
+          setAllReplies((prev) => [savedReply, ...prev]);
         } else { 
           alert('Error');
         }
@@ -43,22 +46,22 @@ export default function NewTweet({ setTweets }) {
         <Image
           src={session.user.image}
           alt={session.user.username}
-          width={64}
-          height={64}
+          width={40}
+          height={40}
           className="rounded-full"
         />
         ) : (
-          <div className="w-16 h-16 rounded-full bg-blue-100" />
+          <div className="w-10 h-10 rounded-full bg-blue-100" />
         )}
         <div className="flex-1 ml-3 mb-3">
           <textarea
             className="border border-gray-200 p-4 w-full text-lg font-medium bg-transparent outline-none dark:text-slate-400"
             rows={2}
             cols={50}
-            placeholder="What's happening?"
-            name="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            placeholder="Reply to this tweet"
+            name="reply"
+            value={reply}
+            onChange={(e) => setReply(e.target.value)}
           />
         </div>
       </div>
@@ -66,7 +69,7 @@ export default function NewTweet({ setTweets }) {
       <div className="flex">
         <div className="flex justify-end flex-1">
           <button className="px-8 py-2 mt-0 bg-blue-900 font-bold rounded-full text-white hover:opacity-90 transition duration-300">
-            Tweet
+            Reply
           </button>
         </div>
       </div>

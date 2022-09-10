@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Layout from 'components/Layout';
@@ -6,9 +6,10 @@ import NewTweet from 'components/NewTweet';
 import Tweets from 'components/Tweets';
 import prisma from 'lib/prisma';
 import { getTweets } from 'lib/data';
+import LoadMore from 'components/LoadMore';
 
-export default function Home({ tweets }) {
-  const [allTweets, setAllTweets] = useState(tweets);
+export default function Home({ initialTweets }) {
+  const [tweets, setTweets] = useState(initialTweets);
   const { data: session, status } = useSession();
   const loading = status === 'loading';
   const router = useRouter();
@@ -17,25 +18,27 @@ export default function Home({ tweets }) {
     return null;
   }
 
-  if (session && !session.user.name) {
-    return router.push('/setup/');
+  if (session && !session.user.username) {
+    router.push('/setup');
+    return;
   }
 
   return (
     <Layout>
-      <NewTweet setAllTweets={setAllTweets} />
-      <Tweets tweets={allTweets} shadow />
+      <NewTweet setTweets={setTweets} />
+      <Tweets tweets={tweets} shadow />
+      <LoadMore setTweets={setTweets} tweets={tweets} />
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
-  let tweets = await getTweets(prisma);
-  tweets = JSON.parse(JSON.stringify(tweets));
+  let initialTweets = await getTweets(prisma, 10, null);
+  initialTweets = JSON.parse(JSON.stringify(initialTweets));
 
   return {
     props: {
-      tweets,
+      initialTweets,
     },
   };
 }

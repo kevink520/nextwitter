@@ -21,5 +21,12 @@ export default NextAuth({
 
   debug: true,
   adapter: PrismaAdapter(prisma),
+  callbacks: {
+    async session({ session, token, user }) {
+      session.user.id = user.id;
+      session.user.username = user.username;
+      return session;
+    },
+  },
 });
 

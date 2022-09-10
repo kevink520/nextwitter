@@ -21,7 +21,8 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
-  tweets        Tweet[]
+  tweets        Tweet[]   @relation("UserTweet")
+  likedTweets   Tweet[]
 }
 
 model VerificationToken {
@@ -65,6 +66,7 @@ model Tweet {
   parent       Int?
   createdAt    DateTime @default(now())
   content      String
-  author       User     @relation(fields: [authorId], references: [id])
+  author       User     @relation("UserTweet", fields: [authorId], references: [id])
   authorId     String
+  likes        User[]
 }

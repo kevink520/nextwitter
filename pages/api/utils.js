@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     for (let count = 0; count < 5; count++) {
       await prisma.user.create({
         data: {
-          name: faker.internet.userName().toLowerCase(),
+          username: faker.internet.userName().toLowerCase(),
           email: faker.internet.email().toLowerCase(),
           image: faker.internet.avatar(),
         },
