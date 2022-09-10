@@ -1,3 +1,4 @@
+import { getSession } from 'next-auth/react';
 import Layout from 'components/Layout';
 
 export default function Utils() {
@@ -63,4 +64,22 @@ export default function Utils() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req });
+  if (process.env.NODE_ENV !== 'development' || !session || !session.user) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

@@ -11,7 +11,6 @@ import { getTweetReplies } from 'lib/data';
 
 export default function SingleTweet({ tweet, replies }) {
   const [allReplies, setAllReplies] = useState(replies);
-  const { data: session } = useSession();
   const router = useRouter();
   if (typeof window !== 'undefined' && tweet.parent) {
     router.push(`/${tweet.parentData.author.username}/status/${tweet.parent}`);
@@ -21,39 +20,9 @@ export default function SingleTweet({ tweet, replies }) {
     <Layout>
       <div className="w-full max-w-2xl p-8 bg-white dark:bg-slate-700 shadow">
         <Tweet tweet={tweet} />
-        {session && session.user.email === tweet.author.email && (
-          <button
-            className="border-b-2 border-blue-500 ml-14 bg-transparent text-sm text-blue-500 dark:text-slate-400 hover:opacity-75 pt-2"
-            onClick={async () => {
-              if (!confirm('Are you sure you want to delete this tweet?')) {
-                return;
-              }
-
-              const res = await fetch('/api/tweet/', {
-                body: JSON.stringify({
-                  id: tweet.id,
-                }),
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                method: 'DELETE',
-              });
-
-              if (res.status === 401) {
-                alert('Unauthorized');
-              }
-
-              if (res.status === 200) {
-                router.push('/home');
-              }
-            }}
-          >
-            Delete
-          </button>
-        )}
         <div className="pl-6">
           <NewReply setAllReplies={setAllReplies} tweet={tweet} />
-          <Tweets tweets={allReplies} />
+          <Tweets tweets={allReplies} setAllReplies={setAllReplies} />
         </div>
       </div>
     </Layout>
