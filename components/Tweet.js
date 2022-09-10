@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,11 +7,14 @@ import { useSession } from 'next-auth/react';
 import DeleteButton from 'components/DeleteButton';
 import { FaComments, FaHeart } from 'react-icons/fa';
 
-export default function Tweet({ tweet, setAllReplies }) {
+export default function Tweet({ setTweets, tweet, setAllReplies }) {
   const [likesCount, setLikesCount] = useState(tweet.likes?.length || 0);
   const { data: session } = useSession();
   const { asPath } = useRouter();
-  console.log(asPath)
+
+  useEffect(() => {
+    setLikesCount(tweet.likes?.length || 0);
+  }, [tweet]);
 
   return (
     <div className="mb-8">
@@ -91,7 +94,19 @@ export default function Tweet({ tweet, setAllReplies }) {
                       return;
                     }
 
-                    setLikesCount((prev) => prev + 1);
+                    setTweets((prev) => {
+                      const tweetIndex = prev.findIndex((t) => t.id === tweet.id);
+                      const newTweet = {
+                        ...prev[tweetIndex],
+                      likes: [{ id: session.user.id }, ...tweet.likes],
+                      };
+
+                      return [
+                        ...prev.slice(0, tweetIndex),
+                        newTweet,
+                        ...prev.slice(tweetIndex + 1),
+                      ];
+                    });
                   }}
                 >
                   <FaHeart size={24} />

@@ -26,7 +26,7 @@ export default function Home({ initialTweets }) {
   return (
     <Layout>
       <NewTweet setTweets={setTweets} />
-      <Tweets tweets={tweets} shadow />
+      <Tweets tweets={tweets} setTweets={setTweets} shadow />
       <LoadMore setTweets={setTweets} tweets={tweets} />
     </Layout>
   );

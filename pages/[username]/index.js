@@ -13,7 +13,7 @@ export default function UserProfile({ username, initialTweets }) {
     <Layout>
       <div className="w-full max-w-2xl p-8 bg-white dark:bg-slate-700 shadow">
         <h1 className="text-2xl dark:text-white">Profile of {username}</h1>
-        <Tweets tweets={tweets} />
+        <Tweets setTweets={setTweets} tweets={tweets} />
         <LoadMore setTweets={setTweets} tweets={tweets} username={username} />
       </div>
     </Layout>

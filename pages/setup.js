@@ -21,8 +21,6 @@ export default function Setup() {
     return;
   }
 
-  console.log('session', session);
-
   return (
     <form
       className="mt-10 ml-20"
