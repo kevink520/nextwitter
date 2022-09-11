@@ -35,7 +35,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -45,7 +44,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![nextwitter Screen Shot][product-screenshot]]
 
 I build Next.js apps with Headless WordPress at work, and I wanted to be really good at what I do. So I enrolled in <a href="https://flaviocopes.com/">Flavio Copes</a>' Advanced Bootcamp. 
 
@@ -113,15 +112,6 @@ This is based on a project in the Advanced Bootcamp, and I added many extra feat
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTACT -->
-## Contact
-
-Kevin Kim - [https://www.linkedin.com/in/kevin-kim-73b607125/](https://www.linkedin.com/in/kevin-kim-73b607125/)
-
-Project Link: [https://github.com/kevink520/nextwitter](https://github.com/kevink520/nextwitter)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ACKNOWLEDGMENTS -->
@@ -149,7 +139,7 @@ Flavio Copes helped me to become a better developer.
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: https://nextwitter.s3.us-east-1.amazonaws.com/nextwitter.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [PostgreSQL]: https://img.shields.io/static/v1?style=for-the-badge&message=PostgreSQL&color=4169E1&logo=PostgreSQL&logoColor=FFFFFF&label=
