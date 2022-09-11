@@ -44,7 +44,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![nextwitter Screen Shot][product-screenshot]]
+![nextwitter Screen Shot][product-screenshot]
 
 I build Next.js apps with Headless WordPress at work, and I wanted to be really good at what I do. So I enrolled in <a href="https://flaviocopes.com/">Flavio Copes</a>' Advanced Bootcamp. 
 
