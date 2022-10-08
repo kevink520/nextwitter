@@ -10,7 +10,7 @@ export default function Layout({ children }) {
     return null;
   }
 
-  if (router.pathname !== '/' && !session) {
+  if (!['/', '/auth/signin', '/auth/verify-request'].includes(router.pathname) && !session) {
     router.push('/');
   }
 

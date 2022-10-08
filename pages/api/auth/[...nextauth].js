@@ -22,11 +22,18 @@ export default NextAuth({
   debug: true,
   adapter: PrismaAdapter(prisma),
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      return true
+    },
     async session({ session, token, user }) {
       session.user.id = user.id;
       session.user.username = user.username;
       return session;
     },
+  },
+  pages: {
+    signIn: '/auth/signin',
+    verifyRequest: '/auth/verify-request',
   },
 });
 
