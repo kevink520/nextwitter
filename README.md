@@ -47,9 +47,9 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://nextwitter.vercel.app)
 
-I build Next.js apps with Headless WordPress at work, and I wanted to be really good at what I do. So I enrolled in <a href="https://flaviocopes.com/" target="_blank" rel="noopeneer">Flavio Copes</a>' Advanced Bootcamp. 
+I build Next.js apps with Headless WordPress at work, and I practice using the latest technologies in my free time.
 
-This is based on a project in the Advanced Bootcamp, and I added many extra features.
+This is based on a project in <a href="https://flaviocopes.com/" target="_blank" rel="noopeneer">Flavio Copes</a>' Advanced Bootcamp, and I added many extra features.
 
 * Added colors and implemented dark mode.
 * Added replies count.
