@@ -12,7 +12,7 @@ export default NextAuth({
   ],
 
   // database: process.env.DATABASE_URL,
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 
   session: {
     // jwt: true,
