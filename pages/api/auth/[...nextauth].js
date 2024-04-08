@@ -26,7 +26,7 @@ export const authOptions = {
       return true
     },
     async session ({ session, token, user }) {
-      console.log('session', session, 'user', user)
+      console.log('session', session, 'token', token, 'user', user)
       session.user.id = user.id
       session.user.username = user.username
       return session
