@@ -3,7 +3,7 @@ import EmailProvider from 'next-auth/providers/email'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from 'lib/prisma'
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     EmailProvider({
       server: process.env.EMAIL_SERVER,
@@ -35,4 +35,6 @@ export default NextAuth({
     signIn: '/auth/signin',
     verifyRequest: '/auth/verify-request'
   }
-})
+}
+
+export default NextAuth(authOptions)
