@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Navbar from 'components/Navbar'
@@ -6,12 +7,14 @@ import ScrollToTop from 'components/ScrollToTop'
 export default function Layout ({ children }) {
   const { data: session, status } = useSession()
   const router = useRouter()
+  useEffect(() => {
+    if (!['/', '/auth/signin', '/auth/verify-request'].includes(router.pathname) && !session) {
+      router.push('/')
+    }
+  }, [router, session])
+
   if (status === 'loading') {
     return null
-  }
-
-  if (!['/', '/auth/signin', '/auth/verify-request'].includes(router.pathname) && !session) {
-    router.push('/')
   }
 
   return (

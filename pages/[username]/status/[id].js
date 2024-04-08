@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import prisma from 'lib/prisma'
 import { getTweet, getTweetReplies } from 'lib/data'
 import { useRouter } from 'next/router'
@@ -10,9 +10,11 @@ import Tweets from 'components/Tweets'
 export default function SingleTweet ({ tweet, replies }) {
   const [allReplies, setAllReplies] = useState(replies)
   const router = useRouter()
-  if (typeof window !== 'undefined' && tweet.parent) {
-    router.push(`/${tweet.parentData.author.username}/status/${tweet.parent}`)
-  }
+  useEffect(() => {
+    if (tweet.parent) {
+      router.push(`/${tweet.parentData.author.username}/status/${tweet.parent}`)
+    }
+  }, [tweet])
 
   return (
     <Layout>

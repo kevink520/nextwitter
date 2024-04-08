@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 
@@ -16,10 +16,11 @@ export default function SetupForm () {
     return null
   }
 
-  if (!loading && session.user.username) {
-    router.push('/home')
-    return
-  }
+  useEffect(() => {
+    if (!loading && session.user.username) {
+      router.push('/home')
+    }
+  }, [loading, session.user, router])
 
   return (
     <form

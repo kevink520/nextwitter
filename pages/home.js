@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Layout from 'components/Layout'
@@ -13,14 +13,16 @@ export default function Home ({ initialTweets }) {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
   const router = useRouter()
+  console.log('session', session)
+
+  useEffect(() => {
+    if (session && !session.user.username) {
+      router.push('/setup')
+    }
+  }, [session])
 
   if (loading) {
     return null
-  }
-
-  if (session && !session.user.username) {
-    router.push('/setup')
-    return
   }
 
   return (

@@ -15,7 +15,7 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
-    strategy: 'jwt',
+    strategy: 'database',
     maxAge: 30 * 24 * 60 * 60
   },
 
@@ -25,18 +25,18 @@ export const authOptions = {
     async signIn ({ user, account, profile, email, credentials }) {
       return true
     },
-    async jwt({ token, user }) {
+    /*async jwt ({ token, user }) {
       console.log('user', user)
       if (user) {
-        token.user = { id: user.id, username: user.username };
+        token.user = { id: user.id, username: user.username }
       }
-      return token;
-    },
+      return token
+    },*/
     async session ({ session, token, user }) {
       console.log('session', session, 'token', token, 'user', user)
-      if (token.user) {
-        session.user.id = token.user.id
-        session.user.username = token.user.username
+      if (user) {
+        session.user.id = user.id
+        session.user.username = user.username
       }
       return session
     }

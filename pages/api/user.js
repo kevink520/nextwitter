@@ -1,6 +1,7 @@
 import prisma from 'lib/prisma'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { getServerSession } from 'next-auth/next'
+import { getUserByUsername } from 'lib/data'
 
 export default async function handler (req, res) {
   if (req.method !== 'GET') {

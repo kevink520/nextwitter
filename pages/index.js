@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import prisma from 'lib/prisma'
@@ -9,13 +10,16 @@ import Tweets from 'components/Tweets'
 export default function Home ({ tweets }) {
   const router = useRouter()
   const { data: session, status } = useSession()
+  useEffect(() => {
+    if (session) {
+      router.push('/home')
+    }
+  }, [session])
+  
   if (status === 'loading') {
     return null
   }
 
-  if (session) {
-    router.push('/home')
-  }
 
   return (
     <Layout>
