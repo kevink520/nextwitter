@@ -1,10 +1,10 @@
-import Layout from 'components/Layout';
-import SetupForm from 'components/SetupForm';
+import Layout from 'components/Layout'
+import SetupForm from 'components/SetupForm'
 
-export default function Setup() {
+export default function Setup () {
   return (
     <Layout>
       <SetupForm />
     </Layout>
-  );
+  )
 }

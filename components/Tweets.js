@@ -1,8 +1,8 @@
-import Tweet from 'components/Tweet';
+import Tweet from 'components/Tweet'
 
-export default function Tweets({ tweets, setTweets, setAllReplies, shadow }) {
+export default function Tweets ({ tweets, setTweets, setAllReplies, shadow }) {
   if (!tweets) {
-    return null;
+    return null
   }
 
   return (
@@ -11,6 +11,5 @@ export default function Tweets({ tweets, setTweets, setAllReplies, shadow }) {
         <Tweet key={tweet.id} setTweets={setTweets} tweet={tweet} setAllReplies={setAllReplies} />
       ))}
     </div>
-  );
+  )
 }
-

@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react';
-import { FaChevronUp } from 'react-icons/fa';
+import { useState, useEffect } from 'react'
+import { FaChevronUp } from 'react-icons/fa'
 
-export default function ScrollToTop() {
-  const [showScroll, setShowScroll] = useState(false);
+export default function ScrollToTop () {
+  const [showScroll, setShowScroll] = useState(false)
   useEffect(() => {
     const checkScrollTop = () => {
       if (window.pageYOffset > 400) {
-        setShowScroll(true);
+        setShowScroll(true)
       } else {
-        setShowScroll(false);
+        setShowScroll(false)
       }
-    };
+    }
 
-    window.addEventListener('scroll', checkScrollTop);
+    window.addEventListener('scroll', checkScrollTop)
     return () => {
-      window.removeEventListener('scroll', checkScrollTop);
-    };
-  }, []);
+      window.removeEventListener('scroll', checkScrollTop)
+    }
+  }, [])
 
   return (
     <button
@@ -27,5 +27,5 @@ export default function ScrollToTop() {
     >
       <FaChevronUp size={28} />
     </button>
-  );
+  )
 }

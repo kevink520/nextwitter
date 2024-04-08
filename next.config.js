@@ -2,9 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['cloudflare-ipfs.com', 'localhost'],
+    domains: ['cloudflare-ipfs.com', 'localhost']
   },
-  swcMinify: true,
-};
+  swcMinify: true
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

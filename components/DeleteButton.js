@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 
-export default function DeleteButton({ tweet, setAllReplies }) {
-  const router = useRouter();
+export default function DeleteButton ({ tweet, setAllReplies }) {
+  const router = useRouter()
   return (
     <button
-      className="border-b-2 border-blue-500 ml-14 bg-transparent text-sm text-blue-500 dark:text-slate-400 hover:opacity-75 pt-2"
+      className='border-b-2 border-blue-500 ml-14 bg-transparent text-sm text-blue-500 dark:text-slate-400 hover:opacity-75 pt-2'
       onClick={async () => {
         if (
           !confirm(
@@ -13,35 +13,35 @@ export default function DeleteButton({ tweet, setAllReplies }) {
             }?`
           )
         ) {
-          return;
+          return
         }
 
         const res = await fetch('/api/tweet/', {
           body: JSON.stringify({
-            id: tweet.id,
+            id: tweet.id
           }),
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          method: 'DELETE',
-        });
+          method: 'DELETE'
+        })
 
         if (res.status === 401) {
-          alert('Unauthorized');
-          return;
+          alert('Unauthorized')
+          return
         }
 
         if (res.status === 200 && !tweet.parent) {
-          router.push('/home');
-          return;
+          router.push('/home')
+          return
         }
 
         if (res.status === 200 && setAllReplies) {
-          setAllReplies((prev) => prev.filter((r) => r.id !== tweet.id));
+          setAllReplies((prev) => prev.filter((r) => r.id !== tweet.id))
         }
       }}
     >
       Delete
     </button>
-  );
+  )
 }

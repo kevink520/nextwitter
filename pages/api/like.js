@@ -1,69 +1,70 @@
-import { getSession } from 'next-auth/react';
-import prisma from 'lib/prisma';
+import prisma from 'lib/prisma'
+import { authOptions } from 'pages/api/auth/[...nextauth]'
+import { getServerSession } from 'next-auth/next'
 
-export default async function handler(req, res) {
+export default async function handler (req, res) {
   if (req.method !== 'POST') {
-    return res.status(501).end();
+    return res.status(501).end()
   }
 
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions)
   if (!session) {
-    return res.status(401).json({ message: 'Not logged in' });
+    return res.status(401).json({ message: 'Not logged in' })
   }
 
-  const { tweetId, userId } = req.body;
+  const { tweetId, userId } = req.body
   if (!tweetId || !userId) {
-    return res.status(400).json({ message: 'Missing tweetId or userId' });
+    return res.status(400).json({ message: 'Missing tweetId or userId' })
   }
 
   try {
     const tweet = await prisma.tweet.findUnique({
       where: {
-        id: tweetId,
+        id: tweetId
       },
       include: {
-        likes: true,
-      },
-    });
+        likes: true
+      }
+    })
 
-    const likes = tweet?.likes?.map((user) => ({ id: user.id })) || [];
+    const likes = tweet?.likes?.map((user) => ({ id: user.id })) || []
 
     await prisma.tweet.update({
       where: {
-        id: tweetId,
+        id: tweetId
       },
       data: {
         likes: {
-          set: [{ id: userId }, ...likes],
-        },
-      },
-    });
+          set: [{ id: userId }, ...likes]
+        }
+      }
+    })
 
     const user = await prisma.user.findUnique({
       where: {
-        id: userId,
+        id: userId
       },
       include: {
-        likedTweets: true,
-      },
-    });
+        likedTweets: true
+      }
+    })
 
-    const likedTweets = user?.likedTweets?.map((tweet) => ({ id: tweet.id })) || [];
+    const likedTweets = user?.likedTweets?.map((tweet) => ({ id: tweet.id })) || []
 
     await prisma.user.update({
       where: {
-        id: userId,
+        id: userId
       },
       data: {
         likedTweets: {
-          set: [{ id: tweetId }, ...likedTweets],
-        },
-      },
-    });
+          set: [{ id: tweetId }, ...likedTweets]
+        }
+      }
+    })
 
-    res.status(200).end();
+    res.status(200).end()
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.log(error)
+    return res.status(500).json({ message: 'Internal server error' })
   }
 }

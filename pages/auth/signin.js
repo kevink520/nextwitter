@@ -1,10 +1,10 @@
-import Layout from 'components/Layout';
-import SignInForm from 'components/SignInForm';
+import Layout from 'components/Layout'
+import SignInForm from 'components/SignInForm'
 
-export default function SignIn() {
+export default function SignIn () {
   return (
     <Layout>
       <SignInForm />
     </Layout>
-  );
+  )
 }
