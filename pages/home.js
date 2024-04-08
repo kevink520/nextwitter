@@ -13,7 +13,6 @@ export default function Home ({ initialTweets }) {
   const { data: session, status } = useSession()
   const loading = status === 'loading'
   const router = useRouter()
-  console.log('session', session)
 
   useEffect(() => {
     if (session && !session.user.username) {

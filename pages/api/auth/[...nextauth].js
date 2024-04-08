@@ -25,15 +25,7 @@ export const authOptions = {
     async signIn ({ user, account, profile, email, credentials }) {
       return true
     },
-    /*async jwt ({ token, user }) {
-      console.log('user', user)
-      if (user) {
-        token.user = { id: user.id, username: user.username }
-      }
-      return token
-    },*/
     async session ({ session, token, user }) {
-      console.log('session', session, 'token', token, 'user', user)
       if (user) {
         session.user.id = user.id
         session.user.username = user.username

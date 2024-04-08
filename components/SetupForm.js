@@ -46,7 +46,6 @@ export default function SetupForm () {
         })
 
         if (!res2.ok) {
-          console.log(res2.statusText)
           alert('Something went wrong')
           return
         }

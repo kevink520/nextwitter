@@ -6,6 +6,7 @@ import timeago from 'lib/timeago'
 import { useSession } from 'next-auth/react'
 import DeleteButton from 'components/DeleteButton'
 import { FaComments, FaHeart } from 'react-icons/fa'
+import cn from 'classnames'
 
 export default function Tweet ({ setTweets, tweet, setAllReplies }) {
   const [likesCount, setLikesCount] = useState(tweet.likes?.length || 0)
@@ -71,7 +72,10 @@ export default function Tweet ({ setTweets, tweet, setAllReplies }) {
             {!tweet.parent && (
               <div className='flex items-center'>
                 <button
-                  className='flex items-center text-gray-300 dark:text-slate-400 hover:text-red-300 dark:hover:text-red-300 transition duration-300'
+                  className={cn(
+                    'flex items-center hover:text-red-300 transition duration-300',
+                    tweet.likes?.length ? 'text-red-300' : 'text-gray-300 dark:text-slate-400'
+                  )}
                   onClick={async () => {
                     if (!session) {
                       return
