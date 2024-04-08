@@ -34,7 +34,7 @@ export default function SetupForm() {
           return;
         }
 
-        await fetch('/api/setup', {
+        const res2 = await fetch('/api/setup', {
           body: JSON.stringify({
             username,
           }),
@@ -43,6 +43,12 @@ export default function SetupForm() {
           },
           method: 'POST',
         });
+
+        if (!res2.ok) {
+          console.log(res2.statusText);
+          alert('Something went wrong');
+          return;
+        }
 
         session.user.username = username;
         router.push('/home');
