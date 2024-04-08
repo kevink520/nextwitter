@@ -29,10 +29,11 @@ export default function Navbar () {
       <div className='container px-4 mx-auto flex flex-wrap items-center justify-between'>
         <div className='w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start'>
           <h1>
-            <Link href={session?.user ? '/home' : '/'}>
-              <a className='inline-block mr-4 py-2 whitespace-nowrap text-3xl text-white tracking-wide'>
-                nextwitter
-              </a>
+            <Link
+              href={session?.user ? '/home' : '/'}
+              className='inline-block mr-4 py-2 whitespace-nowrap text-3xl text-white tracking-wide'
+            >
+              nextwitter
             </Link>
           </h1>
           <button
@@ -57,29 +58,31 @@ export default function Navbar () {
                     ? null
                     : session?.user
                       ? (
-                        <Link href={`/${session.user.username}/`}>
-                          <a className='px-3 py-5 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 transition duration-300'>
-                            {session.user.image
-                              ? (
-                                <Image
-                                  src={session.user.image}
-                                  alt={session.user.username}
-                                  width={40}
-                                  height={40}
-                                  className='rounded-full'
-                                />
-                                )
-                              : (
-                                <div className='w-10 h-10 rounded-full bg-blue-100' />
-                                )}
-                          </a>
+                        <Link
+                          href={`/${session.user.username}/`}
+                          className='px-3 py-5 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 transition duration-300'
+                        >
+                          {session.user.image
+                            ? (
+                              <Image
+                                src={session.user.image}
+                                alt={session.user.username}
+                                width={40}
+                                height={40}
+                                className='rounded-full'
+                              />
+                              )
+                            : (
+                              <div className='w-10 h-10 rounded-full bg-blue-100' />
+                              )}
                         </Link>
                         )
                       : (
-                        <Link href='/api/auth/signin/'>
-                          <a className='px-3 py-5 flex items-center text-xs text-white uppercase tracking-widest hover:opacity-75 transition duration-300'>
-                            Login
-                          </a>
+                        <Link
+                          href='/api/auth/signin/'
+                          className='px-3 py-5 flex items-center text-xs text-white uppercase tracking-widest hover:opacity-75 transition duration-300'
+                        >
+                          Login
                         </Link>
                         )}
                 </li>

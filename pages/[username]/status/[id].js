@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import prisma from 'lib/prisma'
-import { getTweet } from 'lib/data'
+import { getTweet, getTweetReplies } from 'lib/data'
 import { useRouter } from 'next/router'
 import Layout from 'components/Layout'
 import Tweet from 'components/Tweet'
 import NewReply from 'components/NewReply'
 import Tweets from 'components/Tweets'
-import { getTweetReplies } from 'lib/data'
 
 export default function SingleTweet ({ tweet, replies }) {
   const [allReplies, setAllReplies] = useState(replies)

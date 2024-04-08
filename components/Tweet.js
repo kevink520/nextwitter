@@ -35,10 +35,11 @@ export default function Tweet ({ setTweets, tweet, setAllReplies }) {
               )}
         </div>
         <div className={`flex-1 flex-col relative ml-3${!tweet.parent ? ' mb-1' : ''}`}>
-          <Link href={`/${tweet.author.username}/`}>
-            <a className={`-mt-1 text-xl leading-normal dark:text-slate-400${!session ? ' pointer-events-none' : ''}`}>
-              {tweet.author.username}
-            </a>
+          <Link
+            href={`/${tweet.author.username}/`}
+            className={`-mt-1 text-xl leading-normal dark:text-slate-400${!session ? ' pointer-events-none' : ''}`}
+          >
+            {tweet.author.username}
           </Link>
           <p className='mb-2 text-gray-500 dark:text-slate-500 text-sm'>
             {timeago.format(new Date(tweet.createdAt))}
@@ -48,19 +49,23 @@ export default function Tweet ({ setTweets, tweet, setAllReplies }) {
               <span className='dark:text-slate-400'>{tweet.content}</span>
               )
             : (
-              <Link href={`/${tweet.author.username}/status/${tweet.id}`}>
-                <a className='dark:text-slate-400'>{tweet.content}</a>
+              <Link
+                href={`/${tweet.author.username}/status/${tweet.id}`}
+                className='dark:text-slate-400'
+              >
+                {tweet.content}
               </Link>
               )}
           <div className='flex items-center mt-3'>
             {tweet.repliesCount > 0 && (
-              <Link href={`/${tweet.author.username}/status/${tweet.id}`}>
-                <a className={`flex items-center text-gray-300 dark:text-slate-400${!session ? ' pointer-events-none' : ''}`}>
-                  <FaComments size={24} />
-                  <span className='ml-2 mr-5 text-gray-500 dark:text-slate-500 text-sm'>
-                    {tweet.repliesCount}
-                  </span>
-                </a>
+              <Link
+                href={`/${tweet.author.username}/status/${tweet.id}`}
+                className={`flex items-center text-gray-300 dark:text-slate-400${!session ? ' pointer-events-none' : ''}`}
+              >
+                <FaComments size={24} />
+                <span className='ml-2 mr-5 text-gray-500 dark:text-slate-500 text-sm'>
+                  {tweet.repliesCount}
+                </span>
               </Link>
             )}
             {!tweet.parent && (

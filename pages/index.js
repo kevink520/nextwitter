@@ -26,10 +26,11 @@ export default function Home ({ tweets }) {
         <h2 className='mb-6 text-2xl dark:text-white'>
           Join the conversation!
         </h2>
-        <Link href='/api/auth/signin'>
-          <a className='px-8 py-2 rounded-full bg-blue-900 text-white uppercase tracking-widest hover:opacity-90 transition duration-300'>
-            Login
-          </a>
+        <Link
+          href='/api/auth/signin'
+          className='px-8 py-2 rounded-full bg-blue-900 text-white uppercase tracking-widest hover:opacity-90 transition duration-300'
+        >
+          Login
         </Link>
       </div>
     </Layout>
