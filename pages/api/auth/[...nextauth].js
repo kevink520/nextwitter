@@ -11,11 +11,10 @@ export default NextAuth({
     })
   ],
 
-  // database: process.env.DATABASE_URL,
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
-    // jwt: true,
+    strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60
   },
 
