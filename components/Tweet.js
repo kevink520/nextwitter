@@ -21,7 +21,7 @@ export default function Tweet ({ setTweets, tweet, setAllReplies }) {
     <div className='mb-8'>
       <div className='flex items-start'>
         <div className='relative z-10 pb-3 bg-white dark:bg-slate-700'>
-          {tweet.author.image
+          {tweet.author.image && !tweet.author.image?.includes('cloudflare-ipfs.com')
             ? (
               <Image
                 src={tweet.author.image}

@@ -19,6 +19,7 @@ export default function Home ({ tweets }) {
   if (status === 'loading') {
     return null
   }
+  console.log('tweets', tweets)
 
 
   return (
